@@ -16,7 +16,7 @@ public class MangaDownloaderApplication {
 	public static void main(String[] args) throws IOException {
 		ConfigurableApplicationContext run = SpringApplication.run(MangaDownloaderApplication.class, args);
 		MangaDownloaderService bean = run.getBean(MangaDownloaderService.class);
-		bean.dowloadAllManga();
+		bean.dowloadAllMangaFromMangaFox();
 		System.in.read();
 	}
 	
