@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.kslodowicz.manga.service.MangaDownloaderService;
+import com.kslodowicz.manga.controller.MainWorkController;
 
 @SpringBootApplication
 @ComponentScan("com.kslodowicz.manga")
@@ -15,9 +15,8 @@ public class MangaDownloaderApplication {
 
 	public static void main(String[] args) throws IOException {
 		ConfigurableApplicationContext run = SpringApplication.run(MangaDownloaderApplication.class, args);
-		MangaDownloaderService bean = run.getBean(MangaDownloaderService.class);
-		bean.dowloadAllMangaFromMangaFox();
-		System.in.read();
+		run.getBean(MainWorkController.class).start();
+		
 	}
 	
 	
