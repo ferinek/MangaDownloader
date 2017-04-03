@@ -1,6 +1,7 @@
 package com.kslodowicz.manga.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
@@ -36,6 +37,14 @@ public class MangaFoxDownloaderService {
 		System.out.println("Loading Page");
 
 		driver.get(mangaLink);
+		System.out.println("You can now install adblock for faster downloading. Press enter to continue");
+		
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("Page Loaded, expanding chapters to find first");
 		runJsScript("$('#chapters').show()");
 		runJsScript("$('.expand').click()");
