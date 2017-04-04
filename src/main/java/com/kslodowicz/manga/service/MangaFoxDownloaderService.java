@@ -28,8 +28,9 @@ public class MangaFoxDownloaderService {
 	@Value("${manga.savepath}")
 	private String mangaSavePath;
 	
-	@Value("${mangafox.hasvolumes}")
-	private int mangaHasVolumes;
+	@Value("${manga.startfromchapter}")
+	private int startingchapter;
+	
 	@Autowired
 	private WebDriver driver;
 
@@ -49,7 +50,8 @@ public class MangaFoxDownloaderService {
 		runJsScript("$('#chapters').show()");
 		runJsScript("$('.expand').click()");
 		List<WebElement> elements = driver.findElements(By.cssSelector("a[class='tips']"));
-		WebElement firstChapter = elements.get(elements.size() - 1);
+		WebElement firstChapter = elements.get(elements.size() - startingchapter);
+		
 		System.out.println("First Chapter Found. Starting download.");
 		firstChapter.click();
 		boolean koniec = true;
@@ -69,14 +71,15 @@ public class MangaFoxDownloaderService {
 			driver.findElement(By.cssSelector("a[class='btn next_page']")).click();
 		}
 		System.out.println("Downloading complete. You now can turn off application.");
+		driver.close();
 	}
 
 	private String getPage() {
 		String currentUrl = driver.getCurrentUrl();
-		String[] split = currentUrl.split(STRING);
-		if (split.length < 7+mangaHasVolumes) {
+		if (currentUrl.endsWith("/")) {
 			return null;
 		}
+		String[] split = currentUrl.split(STRING);
 		String lastPart = split[split.length - 1];
 		return getStandarizedNumber(lastPart.substring(0, lastPart.length() - 5));
 	}

@@ -29,7 +29,7 @@ public class MangaFreakDownloaderService {
 			element.click();
 			ThreadUtils.sleep(1);
 		}
-		System.out.println("Downloading complete. You now can turn off application.");
+		System.out.println("Clicking complete. Wait for finishing downloading and turn off application.");
 		
 	}
 
